@@ -37,3 +37,6 @@ config.log
 
 # .os files
 dogcalc_ext/*.os
+
+# Godot extension api file
+extension_api.json
