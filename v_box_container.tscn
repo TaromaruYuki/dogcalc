@@ -18,17 +18,17 @@ metadata/_edit_use_anchors_ = true
 [node name="Content" type="VBoxContainer" parent="."]
 layout_mode = 2
 
-[node name="Inputs" type="VBoxContainer" parent="Content"]
+[node name="InputsManager" type="InputsManager" parent="Content"]
 layout_mode = 2
 
-[node name="Hex" type="HBoxContainer" parent="Content/Inputs"]
+[node name="Hex" type="HBoxContainer" parent="Content/InputsManager"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Content/Inputs/Hex"]
+[node name="Label" type="Label" parent="Content/InputsManager/Hex"]
 layout_mode = 2
 text = "HEX"
 
-[node name="LineEdit" type="LineEdit" parent="Content/Inputs/Hex"]
+[node name="LineEdit" type="LineEdit" parent="Content/InputsManager/Hex"]
 layout_mode = 2
 size_flags_horizontal = 3
 alignment = 2
@@ -42,14 +42,14 @@ drag_and_drop_selection_enabled = false
 script = ExtResource("1_sesk7")
 allowed_characters = "[0-9A-Fa-f]"
 
-[node name="Dec" type="HBoxContainer" parent="Content/Inputs"]
+[node name="Dec" type="HBoxContainer" parent="Content/InputsManager"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Content/Inputs/Dec"]
+[node name="Label" type="Label" parent="Content/InputsManager/Dec"]
 layout_mode = 2
 text = "DEC"
 
-[node name="LineEdit" type="LineEdit" parent="Content/Inputs/Dec"]
+[node name="LineEdit" type="LineEdit" parent="Content/InputsManager/Dec"]
 layout_mode = 2
 size_flags_horizontal = 3
 alignment = 2
@@ -63,14 +63,14 @@ drag_and_drop_selection_enabled = false
 script = ExtResource("1_sesk7")
 allowed_characters = "[0-9]"
 
-[node name="Oct" type="HBoxContainer" parent="Content/Inputs"]
+[node name="Oct" type="HBoxContainer" parent="Content/InputsManager"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Content/Inputs/Oct"]
+[node name="Label" type="Label" parent="Content/InputsManager/Oct"]
 layout_mode = 2
 text = "OCT"
 
-[node name="LineEdit" type="LineEdit" parent="Content/Inputs/Oct"]
+[node name="LineEdit" type="LineEdit" parent="Content/InputsManager/Oct"]
 layout_mode = 2
 size_flags_horizontal = 3
 alignment = 2
@@ -84,14 +84,14 @@ drag_and_drop_selection_enabled = false
 script = ExtResource("1_sesk7")
 allowed_characters = "[0-7]"
 
-[node name="Bin" type="HBoxContainer" parent="Content/Inputs"]
+[node name="Bin" type="HBoxContainer" parent="Content/InputsManager"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Content/Inputs/Bin"]
+[node name="Label" type="Label" parent="Content/InputsManager/Bin"]
 layout_mode = 2
 text = "BIN"
 
-[node name="LineEdit" type="LineEdit" parent="Content/Inputs/Bin"]
+[node name="LineEdit" type="LineEdit" parent="Content/InputsManager/Bin"]
 layout_mode = 2
 size_flags_horizontal = 3
 alignment = 2
@@ -111,7 +111,7 @@ size_flags_vertical = 3
 columns = 6
 script = ExtResource("2_juosd")
 
-[connection signal="text_changed" from="Content/Inputs/Hex/LineEdit" to="Content/Inputs/Hex/LineEdit" method="_on_text_changed"]
-[connection signal="text_changed" from="Content/Inputs/Dec/LineEdit" to="Content/Inputs/Dec/LineEdit" method="_on_text_changed"]
-[connection signal="text_changed" from="Content/Inputs/Oct/LineEdit" to="Content/Inputs/Oct/LineEdit" method="_on_text_changed"]
-[connection signal="text_changed" from="Content/Inputs/Bin/LineEdit" to="Content/Inputs/Bin/LineEdit" method="_on_text_changed"]
+[connection signal="text_changed" from="Content/InputsManager/Hex/LineEdit" to="Content/InputsManager/Hex/LineEdit" method="_on_text_changed"]
+[connection signal="text_changed" from="Content/InputsManager/Dec/LineEdit" to="Content/InputsManager/Dec/LineEdit" method="_on_text_changed"]
+[connection signal="text_changed" from="Content/InputsManager/Oct/LineEdit" to="Content/InputsManager/Oct/LineEdit" method="_on_text_changed"]
+[connection signal="text_changed" from="Content/InputsManager/Bin/LineEdit" to="Content/InputsManager/Bin/LineEdit" method="_on_text_changed"]
