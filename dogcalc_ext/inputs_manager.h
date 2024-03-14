@@ -17,15 +17,15 @@ private:
 protected:
 	static void _bind_methods();
 
-    void change_input();
-    void clear_line_edits();
-    void _line_edit_focus_entered(HBoxContainer* child);
-    void _line_edit_text_changed(LineEdit* line_edit);
-
 public:
 	InputsManager();
 	~InputsManager();
 
+    void _ready() override;
+    void change_input();
+    void clear_line_edits();
+    void _line_edit_focus_entered(HBoxContainer* child);
+    void _line_edit_text_changed(LineEdit* line_edit);
 };
 
 }

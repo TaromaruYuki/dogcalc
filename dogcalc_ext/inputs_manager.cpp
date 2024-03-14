@@ -4,12 +4,16 @@
 using namespace godot;
 
 void InputsManager::_bind_methods() {
+    ADD_SIGNAL(MethodInfo("print_crossover", PropertyInfo(Variant::STRING, "crossover")));
 }
 
 InputsManager::InputsManager() {
 	current_input = "Dec";
     current_child = nullptr;
+}
 
+void InputsManager::_ready() {
+    emit_signal("print_crossover", "InputsManager::_ready()");
     auto children = get_children();
     
     for (int i = 0; i < children.size(); i++) {
@@ -48,11 +52,13 @@ void InputsManager::change_input() {
 }
 
 void InputsManager::_line_edit_focus_entered(HBoxContainer* child) {
+    emit_signal("print_crossover", "InputsManager::_line_edit_focus_entered()");
     current_input = child->get_name();
     this->change_input();
 }
 
 void InputsManager::_line_edit_text_changed(LineEdit* line_edit) {
+    emit_signal("print_crossover", "InputsManager::_line_edit_text_changed()");
     if(line_edit->get_text().is_empty()) {
         this->clear_line_edits();
         return;
@@ -63,13 +69,13 @@ void InputsManager::_line_edit_text_changed(LineEdit* line_edit) {
     auto name = parent->get_name();
 
     if(name.match("Hex")) {
-        printf("Hex");
+        emit_signal("print_crossover", "Hex");
     } else if(name.match("Dec")) {
-        printf("Dec");
+        emit_signal("print_crossover", "Dec");
     } else if(name.match("Oct")) {
-        printf("Oct");
+        emit_signal("print_crossover", "Oct");
     } else if(name.match("Bin")) {
-        printf("Bin");
+        emit_signal("print_crossover", "Bin");
     }
 }
 
