@@ -20,13 +20,14 @@ void InputsManager::_ready() {
         auto child = Object::cast_to<HBoxContainer>(children[i]);
         auto line_edit = Object::cast_to<LineEdit>(child->get_child(1));
         
-        Callable focus_callable(this, "_line_edit_focus_entered");
-        focus_callable.bind(child);
+        Callable focus_callable = callable_mp(this, &InputsManager::_line_edit_focus_entered);
+        focus_callable = focus_callable.bind(child);
+        emit_signal("print_crossover", focus_callable.is_valid() ? "true" : "false");
         line_edit->connect("focus_entered", focus_callable);
 
-        Callable text_callable(this, "_line_edit_text_changed");
-        text_callable.bind(line_edit);
-        line_edit->connect("text_changed", text_callable);
+        // Callable text_callable(this, "_line_edit_text_changed");
+        // text_callable.bind(line_edit);
+        // line_edit->connect("text_changed", text_callable);
     }
 
     this->change_input();
