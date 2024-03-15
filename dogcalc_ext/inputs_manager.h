@@ -25,7 +25,7 @@ public:
     void change_input();
     void clear_line_edits();
     void _line_edit_focus_entered(HBoxContainer* child);
-    void _line_edit_text_changed(LineEdit* line_edit);
+    void _line_edit_text_changed(String new_text, LineEdit* line_edit);
 };
 
 }

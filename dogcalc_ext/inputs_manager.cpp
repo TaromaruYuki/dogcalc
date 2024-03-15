@@ -13,7 +13,6 @@ InputsManager::InputsManager() {
 }
 
 void InputsManager::_ready() {
-    emit_signal("print_crossover", "InputsManager::_ready()");
     auto children = get_children();
     
     for (int i = 0; i < children.size(); i++) {
@@ -22,12 +21,11 @@ void InputsManager::_ready() {
         
         Callable focus_callable = callable_mp(this, &InputsManager::_line_edit_focus_entered);
         focus_callable = focus_callable.bind(child);
-        emit_signal("print_crossover", focus_callable.is_valid() ? "true" : "false");
         line_edit->connect("focus_entered", focus_callable);
 
-        // Callable text_callable(this, "_line_edit_text_changed");
-        // text_callable.bind(line_edit);
-        // line_edit->connect("text_changed", text_callable);
+        Callable text_callable = callable_mp(this, &InputsManager::_line_edit_text_changed);
+        text_callable = text_callable.bind(line_edit);
+        line_edit->connect("text_changed", text_callable);
     }
 
     this->change_input();
@@ -53,13 +51,11 @@ void InputsManager::change_input() {
 }
 
 void InputsManager::_line_edit_focus_entered(HBoxContainer* child) {
-    emit_signal("print_crossover", "InputsManager::_line_edit_focus_entered()");
     current_input = child->get_name();
     this->change_input();
 }
 
-void InputsManager::_line_edit_text_changed(LineEdit* line_edit) {
-    emit_signal("print_crossover", "InputsManager::_line_edit_text_changed()");
+void InputsManager::_line_edit_text_changed(String new_text, LineEdit* line_edit) {
     if(line_edit->get_text().is_empty()) {
         this->clear_line_edits();
         return;
