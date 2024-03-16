@@ -113,6 +113,7 @@ columns = 6
 script = ExtResource("2_juosd")
 
 [connection signal="print_crossover" from="Content/InputsManager" to="Content/InputsManager" method="_on_print_crossover"]
+[connection signal="remove_last_char" from="Content/InputsManager" to="Content/InputsManager" method="_on_remove_last_char"]
 [connection signal="text_changed" from="Content/InputsManager/Hex/LineEdit" to="Content/InputsManager/Hex/LineEdit" method="_on_text_changed"]
 [connection signal="text_changed" from="Content/InputsManager/Dec/LineEdit" to="Content/InputsManager/Dec/LineEdit" method="_on_text_changed"]
 [connection signal="text_changed" from="Content/InputsManager/Oct/LineEdit" to="Content/InputsManager/Oct/LineEdit" method="_on_text_changed"]

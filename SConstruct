@@ -14,6 +14,10 @@ env = SConscript("godot_cpp/SConstruct")
 
 # tweak this if you want to use different folders, or more folders, to store your source code in.
 env.Append(CPPPATH=["dogcalc_ext/"])
+
+# enable exceptions with -fexceptions
+env.Append(CCFLAGS=["-fexceptions"])
+
 sources = Glob("dogcalc_ext/*.cpp")
 
 if env["platform"] == "macos":

@@ -1,16 +1,25 @@
 #include "inputs_manager.h"
 #include <godot_cpp/core/class_db.hpp>
+#include <string>
+
+#define PRINT(x) emit_signal("print_crossover", x)
 
 using namespace godot;
 
 void InputsManager::_bind_methods() {
     ADD_SIGNAL(MethodInfo("print_crossover", PropertyInfo(Variant::STRING, "crossover")));
+    ADD_SIGNAL(MethodInfo("remove_last_char"));
+
+    ClassDB::bind_method(D_METHOD("set_current_input", "value"), &InputsManager::set_current_input);
+	ClassDB::bind_method(D_METHOD("get_current_input"), &InputsManager::get_current_input);
+    ADD_PROPERTY(PropertyInfo(Variant::STRING, "current_input"), "set_current_input", "get_current_input");
 }
 
 InputsManager::InputsManager() {
 	current_input = "Dec";
     current_child = nullptr;
 }
+
 
 void InputsManager::_ready() {
     auto children = get_children();
@@ -55,27 +64,6 @@ void InputsManager::_line_edit_focus_entered(HBoxContainer* child) {
     this->change_input();
 }
 
-void InputsManager::_line_edit_text_changed(String new_text, LineEdit* line_edit) {
-    if(line_edit->get_text().is_empty()) {
-        this->clear_line_edits();
-        return;
-    }
-
-    auto parent = Object::cast_to<HBoxContainer>(line_edit->get_parent());
-
-    auto name = parent->get_name();
-
-    if(name.match("Hex")) {
-        emit_signal("print_crossover", "Hex");
-    } else if(name.match("Dec")) {
-        emit_signal("print_crossover", "Dec");
-    } else if(name.match("Oct")) {
-        emit_signal("print_crossover", "Oct");
-    } else if(name.match("Bin")) {
-        emit_signal("print_crossover", "Bin");
-    }
-}
-
 void InputsManager::clear_line_edits() {
     auto children = get_children();
     
@@ -85,4 +73,62 @@ void InputsManager::clear_line_edits() {
 
         line_edit->set_text("");
     }
+}
+
+void InputsManager::_line_edit_text_changed(String new_text, LineEdit* line_edit) {
+    if(line_edit->get_text().is_empty()) {
+        this->clear_line_edits();
+        return;
+    }
+
+    switch(line_edit->get_parent()->get_name().hash()) {
+        case 193458858: { // Hex
+            uint64_t num;
+            try {
+                num = std::stoull(line_edit->get_text().ascii().ptr(), nullptr, 16);
+            } catch (const std::out_of_range& e) {
+                emit_signal("remove_last_char");
+                return;
+            }
+
+            this->update_line_edits(num);
+        } break;
+        case 193454481: { // Dec
+            uint64_t num;
+            try {
+                num = std::stoull(line_edit->get_text().ascii().ptr(), nullptr, 10);
+            } catch (const std::out_of_range& e) {
+                emit_signal("remove_last_char");
+                return;
+            }
+
+            this->update_line_edits(num);
+        } break;
+        case 193466411: { // Oct
+            uint64_t num;
+            try {
+                num = std::stoull(line_edit->get_text().ascii().ptr(), nullptr, 8);
+            } catch (const std::out_of_range& e) {
+                emit_signal("remove_last_char");
+                return;
+            }
+
+            this->update_line_edits(num);
+        } break;
+        case 193452446: { // Bin
+            uint64_t num;
+            try {
+                num = std::stoull(line_edit->get_text().ascii().ptr(), nullptr, 2);
+            } catch (const std::out_of_range& e) {
+                emit_signal("remove_last_char");
+                return;
+            }
+
+            this->update_line_edits(num);
+        } break;
+    }
+}
+
+void InputsManager::update_line_edits(uint64_t value) {
+    PRINT(String::num_uint64(value));
 }
