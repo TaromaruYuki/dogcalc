@@ -1,10 +1,32 @@
-[gd_scene load_steps=4 format=3 uid="uid://ch8tqalm0b78k"]
+[gd_scene load_steps=6 format=3 uid="uid://ch8tqalm0b78k"]
 
 [ext_resource type="Script" path="res://InputsManagerSignals.gd" id="1_6ra5v"]
 [ext_resource type="Script" path="res://ValidateLineEdit.gd" id="1_sesk7"]
 [ext_resource type="Script" path="res://ButtonGrid.gd" id="2_juosd"]
+[ext_resource type="Script" path="res://settings.gd" id="4_im4kp"]
 
-[node name="Main" type="MarginContainer"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kdv7h"]
+bg_color = Color(0.156863, 0.156863, 0.156863, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+shadow_color = Color(0.152941, 0.152941, 0.152941, 0.282353)
+shadow_size = 8
+shadow_offset = Vector2(7, 7)
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Settings" type="Settings" parent="."]
+
+[node name="App" type="MarginContainer" parent="."]
+layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -16,21 +38,21 @@ theme_override_constants/margin_right = 8
 theme_override_constants/margin_bottom = 8
 metadata/_edit_use_anchors_ = true
 
-[node name="Content" type="VBoxContainer" parent="."]
+[node name="Content" type="VBoxContainer" parent="App"]
 layout_mode = 2
 
-[node name="InputsManager" type="InputsManager" parent="Content"]
+[node name="InputsManager" type="InputsManager" parent="App/Content"]
 layout_mode = 2
 script = ExtResource("1_6ra5v")
 
-[node name="Hex" type="HBoxContainer" parent="Content/InputsManager"]
+[node name="Hex" type="HBoxContainer" parent="App/Content/InputsManager"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Content/InputsManager/Hex"]
+[node name="Label" type="Label" parent="App/Content/InputsManager/Hex"]
 layout_mode = 2
 text = "HEX"
 
-[node name="LineEdit" type="LineEdit" parent="Content/InputsManager/Hex"]
+[node name="LineEdit" type="LineEdit" parent="App/Content/InputsManager/Hex"]
 layout_mode = 2
 size_flags_horizontal = 3
 alignment = 2
@@ -44,14 +66,14 @@ drag_and_drop_selection_enabled = false
 script = ExtResource("1_sesk7")
 allowed_characters = "[0-9A-Fa-f]"
 
-[node name="Dec" type="HBoxContainer" parent="Content/InputsManager"]
+[node name="Dec" type="HBoxContainer" parent="App/Content/InputsManager"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Content/InputsManager/Dec"]
+[node name="Label" type="Label" parent="App/Content/InputsManager/Dec"]
 layout_mode = 2
 text = "DEC"
 
-[node name="LineEdit" type="LineEdit" parent="Content/InputsManager/Dec"]
+[node name="LineEdit" type="LineEdit" parent="App/Content/InputsManager/Dec"]
 layout_mode = 2
 size_flags_horizontal = 3
 alignment = 2
@@ -64,14 +86,14 @@ drag_and_drop_selection_enabled = false
 script = ExtResource("1_sesk7")
 allowed_characters = "[0-9]"
 
-[node name="Oct" type="HBoxContainer" parent="Content/InputsManager"]
+[node name="Oct" type="HBoxContainer" parent="App/Content/InputsManager"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Content/InputsManager/Oct"]
+[node name="Label" type="Label" parent="App/Content/InputsManager/Oct"]
 layout_mode = 2
 text = "OCT"
 
-[node name="LineEdit" type="LineEdit" parent="Content/InputsManager/Oct"]
+[node name="LineEdit" type="LineEdit" parent="App/Content/InputsManager/Oct"]
 layout_mode = 2
 size_flags_horizontal = 3
 alignment = 2
@@ -85,14 +107,14 @@ drag_and_drop_selection_enabled = false
 script = ExtResource("1_sesk7")
 allowed_characters = "[0-7]"
 
-[node name="Bin" type="HBoxContainer" parent="Content/InputsManager"]
+[node name="Bin" type="HBoxContainer" parent="App/Content/InputsManager"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Content/InputsManager/Bin"]
+[node name="Label" type="Label" parent="App/Content/InputsManager/Bin"]
 layout_mode = 2
 text = "BIN"
 
-[node name="LineEdit" type="LineEdit" parent="Content/InputsManager/Bin"]
+[node name="LineEdit" type="LineEdit" parent="App/Content/InputsManager/Bin"]
 layout_mode = 2
 size_flags_horizontal = 3
 alignment = 2
@@ -106,15 +128,81 @@ drag_and_drop_selection_enabled = false
 script = ExtResource("1_sesk7")
 allowed_characters = "[0-1]"
 
-[node name="GridContainer" type="GridContainer" parent="Content"]
+[node name="GridContainer" type="GridContainer" parent="App/Content"]
 layout_mode = 2
 size_flags_vertical = 3
 columns = 6
 script = ExtResource("2_juosd")
 
-[connection signal="print_crossover" from="Content/InputsManager" to="Content/InputsManager" method="_on_print_crossover"]
-[connection signal="remove_last_char" from="Content/InputsManager" to="Content/InputsManager" method="_on_remove_last_char"]
-[connection signal="text_changed" from="Content/InputsManager/Hex/LineEdit" to="Content/InputsManager/Hex/LineEdit" method="_on_text_changed"]
-[connection signal="text_changed" from="Content/InputsManager/Dec/LineEdit" to="Content/InputsManager/Dec/LineEdit" method="_on_text_changed"]
-[connection signal="text_changed" from="Content/InputsManager/Oct/LineEdit" to="Content/InputsManager/Oct/LineEdit" method="_on_text_changed"]
-[connection signal="text_changed" from="Content/InputsManager/Bin/LineEdit" to="Content/InputsManager/Bin/LineEdit" method="_on_text_changed"]
+[node name="SettingsPanel" type="MarginContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+script = ExtResource("4_im4kp")
+
+[node name="Panel" type="Panel" parent="SettingsPanel"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_kdv7h")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SettingsPanel/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_top = 16.0
+offset_right = -16.0
+offset_bottom = -16.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="SettingsPanel/Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 21
+text = "Settings"
+horizontal_alignment = 1
+visible_ratio = -0.125
+
+[node name="HSeparator" type="HSeparator" parent="SettingsPanel/Panel/VBoxContainer"]
+layout_mode = 2
+
+[node name="SignedButton" type="CheckButton" parent="SettingsPanel/Panel/VBoxContainer"]
+layout_mode = 2
+text = "Signed"
+
+[node name="LittleEndian" type="CheckButton" parent="SettingsPanel/Panel/VBoxContainer"]
+layout_mode = 2
+text = "Little Endian"
+
+[node name="Bits" type="OptionButton" parent="SettingsPanel/Panel/VBoxContainer"]
+layout_mode = 2
+item_count = 4
+selected = 3
+popup/item_0/text = "8-bit"
+popup/item_0/id = 8
+popup/item_1/text = "16-bit"
+popup/item_1/id = 16
+popup/item_2/text = "32-bit"
+popup/item_2/id = 32
+popup/item_3/text = "64-bit"
+popup/item_3/id = 64
+
+[node name="Close" type="Button" parent="SettingsPanel/Panel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 10
+text = "Close"
+
+[connection signal="print_crossover" from="App/Content/InputsManager" to="App/Content/InputsManager" method="_on_print_crossover"]
+[connection signal="remove_last_char" from="App/Content/InputsManager" to="App/Content/InputsManager" method="_on_remove_last_char"]
+[connection signal="text_changed" from="App/Content/InputsManager/Hex/LineEdit" to="App/Content/InputsManager/Hex/LineEdit" method="_on_text_changed"]
+[connection signal="text_changed" from="App/Content/InputsManager/Dec/LineEdit" to="App/Content/InputsManager/Dec/LineEdit" method="_on_text_changed"]
+[connection signal="text_changed" from="App/Content/InputsManager/Oct/LineEdit" to="App/Content/InputsManager/Oct/LineEdit" method="_on_text_changed"]
+[connection signal="text_changed" from="App/Content/InputsManager/Bin/LineEdit" to="App/Content/InputsManager/Bin/LineEdit" method="_on_text_changed"]

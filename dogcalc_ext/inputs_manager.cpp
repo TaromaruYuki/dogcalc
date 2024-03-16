@@ -130,5 +130,27 @@ void InputsManager::_line_edit_text_changed(String new_text, LineEdit* line_edit
 }
 
 void InputsManager::update_line_edits(uint64_t value) {
-    PRINT(String::num_uint64(value));
+    auto children = get_children();
+
+    for(int i = 0; i < children.size(); i++) {
+        auto child = Object::cast_to<HBoxContainer>(children[i]);
+        auto line_edit = Object::cast_to<LineEdit>(child->get_child(1));
+
+        if(child->get_name() == current_input) continue;
+
+        switch(child->get_name().hash()) {
+            case 193458858: { // Hex
+                line_edit->set_text(String::num_int64(value, 16));
+            } break;
+            case 193454481: { // Dec
+                line_edit->set_text(String::num_int64(value, 10));
+            } break;
+            case 193466411: { // Oct
+                line_edit->set_text(String::num_int64(value, 8));
+            } break;
+            case 193452446: { // Bin
+                line_edit->set_text(String::num_int64(value, 2));
+            } break;
+        }
+    }
 }
