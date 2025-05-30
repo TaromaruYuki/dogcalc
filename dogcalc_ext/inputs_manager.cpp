@@ -9,10 +9,13 @@ using namespace godot;
 void InputsManager::_bind_methods() {
     ADD_SIGNAL(MethodInfo("print_crossover", PropertyInfo(Variant::STRING, "crossover")));
     ADD_SIGNAL(MethodInfo("remove_last_char"));
+    // ADD_SIGNAL(MethodInfo("update_line_edits"));
 
     ClassDB::bind_method(D_METHOD("set_current_input", "value"), &InputsManager::set_current_input);
 	ClassDB::bind_method(D_METHOD("get_current_input"), &InputsManager::get_current_input);
     ADD_PROPERTY(PropertyInfo(Variant::STRING, "current_input"), "set_current_input", "get_current_input");
+
+    ClassDB::bind_method(D_METHOD("clear_inputs"), &InputsManager::clear_line_edits);
 }
 
 InputsManager::InputsManager() {
@@ -36,6 +39,8 @@ void InputsManager::_ready() {
         text_callable = text_callable.bind(line_edit);
         line_edit->connect("text_changed", text_callable);
     }
+
+    // Callable update_lines_callable = callable_mp(this, &InputsManager::)
 
     this->change_input();
 }

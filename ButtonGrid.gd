@@ -1,9 +1,9 @@
 extends GridContainer
 
 const BUTTON_LAYOUT = [
-	["SETTINGS", "and", "or", "not", "xor", " "],
-	["inc", "dec", "lsl", "lsr", "asr", "rand"],
-	["(", ")", "rol", "ror", "mod", "/"],
+	["SETTINGS", "&", "|", "!", "^", " "],
+	["++", "--", "<<", ">>", "rand", "randi"],
+	["(", ")", "rol", "ror", "%", "/"],
 	["A", "B", "7", "8", "9", "*"],
 	["C", "D", "4", "5", "6", "-"],
 	["E", "F", "1", "2", "3", "+"],

@@ -1,9 +1,9 @@
 [gd_scene load_steps=6 format=3 uid="uid://ch8tqalm0b78k"]
 
-[ext_resource type="Script" path="res://InputsManagerSignals.gd" id="1_6ra5v"]
-[ext_resource type="Script" path="res://ValidateLineEdit.gd" id="1_sesk7"]
-[ext_resource type="Script" path="res://ButtonGrid.gd" id="2_juosd"]
-[ext_resource type="Script" path="res://settings.gd" id="4_im4kp"]
+[ext_resource type="Script" uid="uid://d3hxoghhrvhle" path="res://InputsManagerSignals.gd" id="1_6ra5v"]
+[ext_resource type="Script" uid="uid://dnefv5xkimxy8" path="res://ValidateLineEdit.gd" id="1_sesk7"]
+[ext_resource type="Script" uid="uid://qbqdh0ewwplx" path="res://ButtonGrid.gd" id="2_juosd"]
+[ext_resource type="Script" uid="uid://bvsshs0ve15am" path="res://settings.gd" id="4_im4kp"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kdv7h"]
 bg_color = Color(0.156863, 0.156863, 0.156863, 1)
@@ -42,6 +42,7 @@ metadata/_edit_use_anchors_ = true
 layout_mode = 2
 
 [node name="InputsManager" type="InputsManager" parent="App/Content"]
+physics_interpolation_mode = 0
 layout_mode = 2
 script = ExtResource("1_6ra5v")
 
@@ -55,6 +56,8 @@ text = "HEX"
 [node name="LineEdit" type="LineEdit" parent="App/Content/InputsManager/Hex"]
 layout_mode = 2
 size_flags_horizontal = 3
+focus_neighbor_top = NodePath("../../Bin/LineEdit")
+focus_neighbor_bottom = NodePath("../../Dec/LineEdit")
 alignment = 2
 editable = false
 context_menu_enabled = false
@@ -76,6 +79,8 @@ text = "DEC"
 [node name="LineEdit" type="LineEdit" parent="App/Content/InputsManager/Dec"]
 layout_mode = 2
 size_flags_horizontal = 3
+focus_neighbor_top = NodePath("../../Hex/LineEdit")
+focus_neighbor_bottom = NodePath("../../Oct/LineEdit")
 alignment = 2
 context_menu_enabled = false
 virtual_keyboard_enabled = false
@@ -96,6 +101,8 @@ text = "OCT"
 [node name="LineEdit" type="LineEdit" parent="App/Content/InputsManager/Oct"]
 layout_mode = 2
 size_flags_horizontal = 3
+focus_neighbor_top = NodePath("../../Dec/LineEdit")
+focus_neighbor_bottom = NodePath("../../Bin/LineEdit")
 alignment = 2
 editable = false
 context_menu_enabled = false
@@ -117,6 +124,8 @@ text = "BIN"
 [node name="LineEdit" type="LineEdit" parent="App/Content/InputsManager/Bin"]
 layout_mode = 2
 size_flags_horizontal = 3
+focus_neighbor_top = NodePath("../../Oct/LineEdit")
+focus_neighbor_bottom = NodePath("../../Hex/LineEdit")
 alignment = 2
 editable = false
 context_menu_enabled = false
@@ -169,7 +178,8 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 21
 text = "Settings"
 horizontal_alignment = 1
-visible_ratio = -0.125
+visible_characters = 0
+visible_ratio = 0.0
 
 [node name="HSeparator" type="HSeparator" parent="SettingsPanel/Panel/VBoxContainer"]
 layout_mode = 2
@@ -184,8 +194,8 @@ text = "Little Endian"
 
 [node name="Bits" type="OptionButton" parent="SettingsPanel/Panel/VBoxContainer"]
 layout_mode = 2
-item_count = 4
 selected = 3
+item_count = 4
 popup/item_0/text = "8-bit"
 popup/item_0/id = 8
 popup/item_1/text = "16-bit"
@@ -200,8 +210,6 @@ layout_mode = 2
 size_flags_vertical = 10
 text = "Close"
 
-[connection signal="print_crossover" from="App/Content/InputsManager" to="App/Content/InputsManager" method="_on_print_crossover"]
-[connection signal="remove_last_char" from="App/Content/InputsManager" to="App/Content/InputsManager" method="_on_remove_last_char"]
 [connection signal="text_changed" from="App/Content/InputsManager/Hex/LineEdit" to="App/Content/InputsManager/Hex/LineEdit" method="_on_text_changed"]
 [connection signal="text_changed" from="App/Content/InputsManager/Dec/LineEdit" to="App/Content/InputsManager/Dec/LineEdit" method="_on_text_changed"]
 [connection signal="text_changed" from="App/Content/InputsManager/Oct/LineEdit" to="App/Content/InputsManager/Oct/LineEdit" method="_on_text_changed"]
