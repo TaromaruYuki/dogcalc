@@ -8,6 +8,7 @@ using namespace godot;
 
 void InputsManager::_bind_methods() {
     ADD_SIGNAL(MethodInfo("print_crossover", PropertyInfo(Variant::STRING, "crossover")));
+    ADD_SIGNAL(MethodInfo("input_changed", PropertyInfo(Variant::STRING, "current_input")));
     ADD_SIGNAL(MethodInfo("remove_last_char"));
     // ADD_SIGNAL(MethodInfo("update_line_edits"));
 
@@ -62,6 +63,8 @@ void InputsManager::change_input() {
             line_edit->set_editable(false);
         }
     }
+
+    emit_signal("input_changed", current_input);
 }
 
 void InputsManager::_line_edit_focus_entered(HBoxContainer* child) {
